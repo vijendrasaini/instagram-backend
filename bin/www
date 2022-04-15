@@ -5,6 +5,7 @@
  */
 
 var app = require('../app');
+var mongoConnnect = require('../configs/db')
 var debug = require('debug')('express:server');
 var http = require('http');
 
@@ -25,7 +26,17 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, async()=>{
+  try {
+    await mongoConnnect()
+    console.log(`Server is listening on the port ${port}`)
+  } catch (error) {
+    console.log({
+      message : error.message,
+      location : "www"
+    })
+  }
+});
 server.on('error', onError);
 server.on('listening', onListening);
 
