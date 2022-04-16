@@ -3,10 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var userprofileController = require('./controllers/userprofile.controller')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
+
+//******************************************************
+
+const userController = require('./controllers/user.controller')
+const profileController = require('./controllers/profile.controller')
+const followController = require('./controllers/follow.controller')
+const postController = require('./controllers/post.controller')
+const followingPostController = require('./controllers/followingpost.controller')
+
+// *****************************************************
 
 var app = express();
 
@@ -20,9 +30,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
-app.use('/', userprofileController);
+// ***************************************************************************
+
+app.use('/api/get-user/:username',profileController)
+app.use('/api/create-user/',userController)
+app.use('/api/follow/:usernameA/:usernameB',followController)
+app.use('/api/create-post/:username',postController)
+app.use('/api/all-posts/:usernameA',followingPostController)
+
+// ***************************************************************************
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
