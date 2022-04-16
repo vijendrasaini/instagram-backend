@@ -16,11 +16,16 @@ router.post('/', async ( req, res)=>{
                 reason : "User already exits"
                 }
             )
+        user = await User.create(req.body)
         return res
         .status(201)
-        .send({ username})
+        .send({ username : user.username})
     } catch (error) {
-        
+        return res
+        .status(500)
+        .send({
+            message : error.message
+        })
     }
 })
 

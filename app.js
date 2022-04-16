@@ -32,9 +32,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ***************************************************************************
 
-app.use('/api/get-user/:username',profileController)
+app.use('/api/get-user',profileController)
 app.use('/api/create-user/',userController)
-app.use('/api/follow/:usernameA/:usernameB',followController)
+app.use('/api/follow',followController)
 app.use('/api/create-post/:username',postController)
 app.use('/api/all-posts/:usernameA',followingPostController)
 

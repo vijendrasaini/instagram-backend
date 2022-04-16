@@ -22,10 +22,14 @@ router.get('/', async(req,res)=>{
         })
 
         let ans = []
-        celebs.map(username => {
+        for(let i = 0;i<celebs.length;i++)
+        {
+            let username = celebs[i]
             const post = await Post.find(username).lean().exec()
             ans = [...ans, ...post]
-        })
+        }
+        // celebs.map(username => {
+        // })
         let finalAns = []
         ans.map(post=>{
             const {postId, imageUrl, caption,upvotes} = post
